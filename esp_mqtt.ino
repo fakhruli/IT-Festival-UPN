@@ -8,7 +8,7 @@ const char *mqtt_server = "broker.hivemq.com";
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-const byte ledPin5 = 16;
+const byte ledPin5 = 4;
 
 void setup_wifi() {
 
@@ -52,12 +52,12 @@ void callback(char *topic, byte *payload, unsigned int length)
   if ((char)payload[0] == '1')
   {
     Serial.print("on");
-    digitalWrite(ledPin5, LOW); // PIN HIGH will switch OFF the relay
+    digitalWrite(ledPin5, HIGH); // PIN HIGH will switch OFF the relay
   }
   if (payload[0] == '0')
   {
     Serial.print("off");
-    digitalWrite(ledPin5, HIGH); // PIN LOW will switch ON the relay
+    digitalWrite(ledPin5, LOW); // PIN LOW will switch ON the relay
   }
 }
 

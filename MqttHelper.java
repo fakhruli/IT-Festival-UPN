@@ -18,7 +18,8 @@ public class MqttHelper {
 
     private final String serverUri = "tcp://broker.hivemq.com:1883";
 
-    private final String subscriptionTopic = "itfestupn/demo";
+    private final String subscriptionTopic = "itfestupndemo/output";
+    private final String publishTopic = "itfestupndemo/input";
 
     public MqttHelper(Context context){
         String clientId = "AndroidClient";
@@ -109,7 +110,7 @@ public class MqttHelper {
     public void publishToTopic(String payload) {
         try {
             MqttMessage message = new MqttMessage(payload.getBytes());
-            mqttAndroidClient.publish(subscriptionTopic, message);
+            mqttAndroidClient.publish(publishTopic, message);
         } catch (MqttException ex) {
             System.err.println("Exception whilst publishing");
             ex.printStackTrace();

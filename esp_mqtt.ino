@@ -1,19 +1,14 @@
-//#include <ESP8266wifi.h>
-#include <EEPROM.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
-#include <Wire.h>
 
-const char *ssid = "SERVER NAME"; 
-const char *password = "SERVER PASSWORD"; 
+const char *ssid = "Test"; 
+const char *password = "123456789000"; 
 const char *mqtt_server = "broker.hivemq.com"; 
-const char *device_id = "esp8266";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
 const byte ledPin5 = 16;
-char message_buff[100];
 
 void setup_wifi() {
 
@@ -61,7 +56,7 @@ void callback(char *topic, byte *payload, unsigned int length)
   }
   if (payload[0] == '0')
   {
-    Serial.print("off);
+    Serial.print("off");
     digitalWrite(ledPin5, HIGH); // PIN LOW will switch ON the relay
   }
 }
@@ -79,7 +74,7 @@ void reconnect()
     clientName += String(micros() & 0xff, 16);
 
     Serial.print("Connecting to ");
-    Serial.print(server);
+    Serial.print(mqtt_server);
     Serial.print(" as ");
     Serial.println(clientName);
     Serial.print("Attempting MQTT connection...");
@@ -102,7 +97,7 @@ void reconnect()
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   setup_wifi();
   client.setServer(mqtt_server, 1883); // change port number as mentioned in your cloudmqtt console
   client.setCallback(callback);
